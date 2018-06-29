@@ -53,88 +53,21 @@ public class alQuest001 {
 		
 		
 		for (int i = 0; i < board[0].length; i++) {
-			
-			for (int j = 0; j < number.length; j++) {
-				if (i%(m+1)==0 ) {
-					xview(number[j], i, m);
-//					System.out.println(i + " x ");
-				}else {
-					yview(number[j], i, m);
-//					i += (m-1);
-				}
+			if (i%3 == 0) {
+				xview(number, i, m);
+			}else {
+				yview(number, i, m);
+				i += 1;
 			}
-			
-//			System.out.println("   " +i + " ");
-			System.out.println();
 		}
 		
-		/*for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < number.length; j++) {
-				if (i%3 == 0) {
-					if (board[number[j]][i]) 
-						System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
-				}else {
-					if (board[number[j]][i])System.out.print("|");
-					else System.out.print(" ");
-					for (int k = 0; k < m; k++) {System.out.print(" ");}
-					if (board[number[j]][i+1])System.out.print("|");
-					else System.out.print(" ");
-				}
-				System.out.print(" ");
-			}
-			System.out.println();
-		}*/
-		
-		/*int i = 0;
-		
-		for (int j = 0; j < number.length; j++) {
-//=============================================
-			if (board[number[j]][i++]) 
-				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
-//=============================================			
-			if (board[number[j]][i])System.out.print("|");
-			else System.out.print(" ");
-			for (int k = 0; k < m; k++) {System.out.print(" ");}
-			if (board[number[j]][i+1])System.out.print("|");
-			else System.out.print(" ");
-			
-			if (j == number.length-1) System.out.println();
-			
-			if (board[number[j]][i])System.out.print("|");
-			else System.out.print(" ");
-			for (int k = 0; k < m; k++) {System.out.print(" ");}
-			if (board[number[j]][i++])System.out.print("|");
-			else System.out.print(" ");
-//=============================================
-			if (board[number[j]][i++]) 
-				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
-//=============================================
-			if (board[number[j]][i])System.out.print("|");
-			else System.out.print(" ");
-			for (int k = 0; k < m; k++) {System.out.print(" ");}
-			if (board[number[j]][i+1])System.out.print("|");
-			else System.out.print(" ");
-			
-			if (j == number.length-1) System.out.println();
-			
-			if (board[number[j]][i])System.out.print("|");
-			else System.out.print(" ");
-			for (int k = 0; k < m; k++) {System.out.print(" ");}
-			if (board[number[j]][i++])System.out.print("|");
-			else System.out.print(" ");	
-//=============================================
-			if (board[number[j]][i++]) 
-				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
-					
-			
-			i=0;
-			System.out.println();
-		}*/
 	}
 	
 	public static void xview(int num , int line ,int m){
 		if (board[num][line]) 
-			System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
+			{System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");}
+		else
+			{System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print(" ");}System.out.print(" ");}
 	}
 	
 	public static void yview(int num, int line ,int m){
@@ -143,8 +76,33 @@ public class alQuest001 {
 		for (int k = 0; k < m; k++) {System.out.print(" ");}
 		if (board[num][line+1])System.out.print("|");
 		else System.out.print(" ");
+		
 	}
-
+	public static void xview(int[] num , int line ,int m){
+		for (int i = 0; i < num.length; i++) {
+			if (board[num[i]][line]) {
+				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");
+			}else {
+				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print(" ");}System.out.print(" ");
+			}
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+	public static void yview(int[] num, int line ,int m){
+		for (int j = 0; j < m; j++) {
+			for (int i = 0; i < num.length; i++) {
+				if (board[num[i]][line])System.out.print("|");
+				else System.out.print(" ");
+				for (int k = 0; k < m; k++) {System.out.print(" ");}
+				if (board[num[i]][line+1])System.out.print("|");
+				else System.out.print(" ");
+				
+				System.out.print(" ");
+			}
+			System.out.println();
+		}
+	}
 
 	public static boolean numberCheck(String num) {
 
