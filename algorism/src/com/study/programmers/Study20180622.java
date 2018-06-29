@@ -12,8 +12,9 @@ public class Study20180622 {
 		2016년 a월 b일은 실제로 있는 날입니다. (13월 26일이나 2월 45일같은 날짜는 주어지지 않습니다)
 	*/
 //	31 0 31 30 31 30 31 31 30 31 30 31 
-	int[] month = {31 , 0 , 31, 30 , 31,30,31,31,30,31,30,31};
-	String[] date = {"","","","","","",""};
+	int year = 2016;
+	int[] month = {31 , 28 , 31, 30 , 31,30,31,31,30,31,30,31};
+	String[] date = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
