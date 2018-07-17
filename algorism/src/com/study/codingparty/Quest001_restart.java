@@ -3,7 +3,7 @@ package com.study.codingparty;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class Quest001 {
+public class Quest001_restart {
 	 /*
 	 * 배달의민족은 시범적으로 새로운 광고 상품을 만들기로 하였습니다. 시범 서비스이기 때문에, 일부분의 지역에서 3개의 업소를 대상으로만 진행해 볼 생각입니다.
 	각 업소는 직사각형 모양의 광고 영역을 설정하고, 단위 영역 당 지불할 광고비를 책정하여 배달의민족에 제출합니다. 특정 지역은 2개 이상의 업소의 광고 영역에 포함될 수 있는데, 
@@ -37,7 +37,7 @@ public class Quest001 {
 		int [] insert = new int[12];
 		int count = 0 ;
 		Scanner sc = new Scanner(System.in);
-		
+
 		while (count < 12) {
 			System.out.print(" 입력 : ");
 			String temp = sc.nextLine();
@@ -54,36 +54,86 @@ public class Quest001 {
 			} 
 			
 		}
-		insert = setting(insert);
-		int area1 = (insert[2]-insert[0])*(insert[3]=insert[1]);
-		int area2 = (insert[6]-insert[4])*(insert[7]=insert[5]);
-		int area3 = (insert[10]-insert[8])*(insert[11]=insert[9]);
+		setting(insert);
+		int[] company1 = {insert[0],insert[1],insert[2],insert[3]};
+		int[] company2 = {insert[4],insert[5],insert[6],insert[7]};
+		int[] company3 = {insert[8],insert[9],insert[10],insert[11]};
+//		int [] company1 = {700 ,400 ,1600 ,1100};
+//		int [] company2 = {0 ,400 ,1100 ,900};
+//		System.out.println(rectangleArea(company1));
+//		System.out.println(rectangleArea(company2));
 		
-		int [] company1 = new int[4];
-		int [] company2 = new int[4];
-		int [] company3 = new int[4];
-		
-		for (int i = 0; i < company1.length; i++) {
-			company1[i] = insert[i];
-			company2[i] = insert[i+4];
-			company3[i] = insert[i+8];
-		}
-		if (area1 > area2) {
+		if (rectangleArea(company1) > rectangleArea(company2)) {
 			int[] temp = company1;
 			company1 = company2;
 			company2 = temp;
+			
 		}
-		if (area1 > area3) {
+		if (rectangleArea(company1) > rectangleArea(company3)) {
 			int[] temp = company1;
 			company1 = company3;
 			company3 = temp;
 		}
-		if (area2 > area3) {
+		if (rectangleArea(company2) > rectangleArea(company3)) {
 			int[] temp = company2;
 			company2 = company3;
 			company3 = temp;
 		}
+		
+		overArea(company1, company2);
+		
+		
+		/*
+		 * a와 b 사각형중 ax1 <= (bx1 or bx2) <= ax2 && ay1 <= (by1 or by2) <= ay2
+		 * >> ax1 <= bx1 <= ax2 || ax1 <= bx2 <= ax2
+		 */
 	
+	}
+	public static int rectangleArea(int[] location){
+		int x = location[2] - location[0];
+		int y = location[3] - location[1];
+		int area = x * y;
+		return area;
+	}
+	
+	public static int[] overArea(int[] company1 , int[] company2){
+		int [] over = new int[4];
+//		겹치는 x축
+		int overxCount = 0;
+		int overyCount = 0;
+		if (company1[0] <= company2[0]&& company1[2] >= company2[0]) {
+			over[0]= company2[0];
+			overxCount++;
+		}else {
+			over[0] = company1[0];
+		}
+		if (company1[0] <= company2[2]&& company1[2] >= company2[2]) {
+			over[2] = company2[2];
+			overxCount++;
+		}else {
+			over[2] = company1[2];
+		}
+//		겹치는 y축
+		if (company1[1] <= company2[1]&& company1[3] >= company2[1]) {
+			over[1] = company2[1];
+			overyCount++;
+		}else {
+			over[1] = company1[1];
+		}
+		if (company1[1] <= company2[3]&& company1[3] >= company2[3]) {
+			over[3] = company2[3];
+			overyCount++;
+		}else {
+			over[3] = company1[3];
+		}
+		if ((overxCount * overyCount)>=1) {
+//			System.out.println(rectangleArea(over));
+			return over;
+		}else {
+			return new int[]{0,0,0,0};
+		}
+		
+		
 	}
 	
 	public static boolean NumberChecking(String temp){
@@ -102,16 +152,15 @@ public class Quest001 {
 
 		return check;
 	}
-	
 	public static int[] setting(int[] insert){
 		// 입력된 숫자를 올바른 순서로 이동(낮은x, 낮은 y, 높은x, 높은y) 순으로 정렬
-		/*for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (insert[(i*4)] > insert[(i*4)+2]) {
 				int temp = 0;
 				temp = insert[(i*4)];
 				insert[(i*4)] = insert[(i*4)+2];
 				insert[(i*4)+2] = temp;
-				System.out.println(insert[(i*4)] + " x:x " + insert[(i*4)+2]);
+//				System.out.println(insert[(i*4)] + " x:x " + insert[(i*4)+2]);
 			}
 			if (insert[(i*4)+1] > insert[(i*4)+3]) {
 				int temp = 0;
@@ -119,81 +168,11 @@ public class Quest001 {
 				insert[(i*4)+1] = insert[(i*4)+3];
 				insert[(i*4)+3] = temp;
 
-				System.out.println(insert[(i*4)+1] + " y:y " + insert[(i*4)+3]);
+//				System.out.println(insert[(i*4)+1] + " y:y " + insert[(i*4)+3]);
 			}
 			
-		}*/
-		if (insert[0] > insert[2]) {
-			int temp = 0;
-			temp = insert[(0)];
-			insert[(0)] = insert[(0)+2];
-			insert[(0)+2] = temp;
-//			System.out.println(insert[(0)] + " x:x " + insert[(0)+2]);
-		}
-		if (insert[1] > insert[3]) {
-			int temp = 0;
-			temp = insert[(1)];
-			insert[(1)] = insert[(1)+2];
-			insert[(1)+2] = temp;
 		}
 		return insert;
 	}
-	
-	public static void basicArea(int[] insert){
-//		입력된 좌표만큼의 면적을 비교해 크기순으로 좌표 교환
-//		System.out.println("basic");
-		int bigarea = 0;
-		
-		for (int i = 0; i < 3; i++) {
-			int x= insert[(i*4)+2] - insert[(i*4)];
-			int y = insert[(i*4)+3] - insert[(i*4)+1];
-			int area = x*y;
-			company[i][0]= area;
-			company[i][1]= insert[(i*4)];
-			company[i][2]= insert[(i*4)+1];
-			company[i][3]= insert[(i*4)+2];
-			company[i][4]= insert[(i*4)+3];
-		}
-		for (int i = 0; i < company.length-1; i++) {
-			for (int j = i+1; j < company.length-1; j++) {
-				if (company[i][0] > company[j][0]) {
-					swap(i,j);
-				}
-			}
-		}
-	}
-	
-	public static void swap(int i,int k){
-		
-		for (int j = 0; j < company[i].length; j++) {
-			int temp = 0;
-			temp = company[i][j];
-			company[i][j] = company[k][j];
-			company[k][j] = temp;
-		}
-	}
-	public static void overArea(){
-		for (int i = 0; i < company.length-1; i++) {
-			int x1,x2,y1,y2 = 0;
-			int xcount = 0,ycount = 0;
-			
-			if ((company[0][1] >= company[i][1] && company[0][1] >= company[i][3])||
-					(company[0][3] >= company[i][1] && company[0][3] >= company[i][3])) {
-//				x라인 겹치는곳이 있다
-				if ((company[0][2] >= company[i][2] && company[0][2] <= company[i][4])||
-						(company[0][2] >= company[i][2] && company[0][2] <= company[i][4])){
-//					y라인 겹치는것이 있다 = 겹처서 보이지 않는 영역이 있다
-					
-				}
-			}
-			
-		}
-	}
-	
-	public static void between(int i){
-		
-		
-	}
-	
 	
 }

@@ -6,7 +6,12 @@ import java.util.regex.Pattern;
 public class alQuest001 {
 
 	static Scanner sc = new Scanner(System.in);
-
+	static boolean[][] board = { { true, true, true, false, true, true, true }, { false, false, true, false, false, true, false },
+		{ true, false, true, true, true, false, true }, { true, false, true, true, false, true, true },
+		{ false, true, true, true, false, true, false }, { true, true, false, true, false, true, true },
+		{ true, true, false, true, true, true, true }, { true, false, true, false, false, true, false },
+		{ true, true, true, true, true, true, true }, { true, true, true, true, false, true, false } };
+	
 	public static void main(String[] args) {
 
 		int n = 0;
@@ -14,44 +19,41 @@ public class alQuest001 {
 		int numM = 0;
 		do {
 			n = whileNumberInserting(sc.next());
-		} while (n < 1 || n > 20);
+		} while (n < 1 || n > 10);
 		do {
 			m = sc.next();
 			if (numberCheck(m)) numM = Integer.parseInt(m); 
 		} while (numM < 1 || numM > 99999999);
-		view(n,numM);
+		view(n,m);
 
 	}
 
-	public static void view(int n, int m) {
-		int length = (int)(Math.log10(m)+1);
-//		System.out.println(m+"length" + length);
+	public static void view(int n, String m) {
+/*		int length = (int)(Math.log10(m)+1);
 		int[] number = new int[length];
 		int a = 0;
 		for (int i = length; i > 0; i--) {
-//			System.out.println((int)(Math.pow(10, i-1)));
 			number[a++] = m/(int)(Math.pow(10, i-1));
 			m =  m%(int)(Math.pow(10, i-1));
 		}
-		ledView(number,n);
+		for (int i = 0; i < length; i++) {
+			System.out.println(length + " : " + number[i]);
+		}*/
+//		ledView(number,n);
+		
+		int length = m.length();
+		int[] number = new int[length];
+		for (int i = 0; i < length; i++) {
+			number[i] = Integer.parseInt(m.substring(i, i+1));
+		}
+		/*for (int i = 0; i < length; i++) {
+			System.out.println(length + " : " + number[i]);
+		}*/
+		ledView(number, n);
+		
 	}
-	static boolean[][] board = { { true, true, true, false, true, true, true }, { false, false, true, false, false, true, false },
-		{ true, false, true, true, true, false, true }, { true, false, true, true, false, true, true },
-		{ false, true, true, true, false, true, false }, { true, true, false, true, false, true, true },
-		{ false, true, false, true, true, true, true }, { true, false, true, false, false, true, false },
-		{ true, true, true, true, true, true, true }, { true, true, true, true, false, true, false } };
+	
 	public static void ledView(int[] number , int m){
-/*		int[][] board = { { 1, 1, 1, 0, 1, 1, 1 }, { 0, 0, 1, 0, 0, 1, 0 },
-				{ 1, 0, 1, 1, 1, 0, 1 }, { 1, 0, 1, 1, 0, 1, 1 },
-				{ 0, 1, 1, 1, 0, 1, 0 }, { 1, 1, 0, 1, 0, 1, 1 },
-				{ 0, 1, 0, 1, 1, 1, 1 }, { 1, 0, 1, 0, 0, 1, 0 },
-				{ 1, 1, 1, 1, 1, 1, 1 }, { 1, 1, 1, 1, 0, 1, 0 } };*/
-		
-//		x y y x y y x
-		
-		System.out.println("number.length" + number.length);
-		
-		
 		for (int i = 0; i < board[0].length; i++) {
 			if (i%3 == 0) {
 				xview(number, i, m);
@@ -63,21 +65,6 @@ public class alQuest001 {
 		
 	}
 	
-	public static void xview(int num , int line ,int m){
-		if (board[num][line]) 
-			{System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print("-");}System.out.print(" ");}
-		else
-			{System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print(" ");}System.out.print(" ");}
-	}
-	
-	public static void yview(int num, int line ,int m){
-		if (board[num][line])System.out.print("|");
-		else System.out.print(" ");
-		for (int k = 0; k < m; k++) {System.out.print(" ");}
-		if (board[num][line+1])System.out.print("|");
-		else System.out.print(" ");
-		
-	}
 	public static void xview(int[] num , int line ,int m){
 		for (int i = 0; i < num.length; i++) {
 			if (board[num[i]][line]) {
@@ -85,7 +72,9 @@ public class alQuest001 {
 			}else {
 				System.out.print(" ");for (int k = 0; k < m; k++) {System.out.print(" ");}System.out.print(" ");
 			}
-			System.out.print(" ");
+			if (i != num.length-1) {
+				System.out.print(" ");
+			}
 		}
 		System.out.println();
 	}
@@ -98,7 +87,9 @@ public class alQuest001 {
 				if (board[num[i]][line+1])System.out.print("|");
 				else System.out.print(" ");
 				
-				System.out.print(" ");
+				if (i != num.length-1) {
+					System.out.print(" ");
+				}
 			}
 			System.out.println();
 		}

@@ -9,7 +9,7 @@ public class Quest002 {
 		String input = "";
 		Scanner sc = new Scanner(System.in);
 
-		int x = whileNumberInserting(input = sc.next());
+		int x = sc.nextInt();
 		int y = whileNumberInserting(input = sc.next());
 
 		System.out.println(add(x, y));
