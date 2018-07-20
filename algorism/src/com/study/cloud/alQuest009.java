@@ -17,6 +17,11 @@ public class alQuest009 {
 		 * X 돌
 		 * D 비버 굴
 		 * S 고슴도치 위치
+		 * ex
+		 * 3 3
+		 * D.*
+		 * ...
+		 * .S.
 		 */
 //		R
 		int r = sc.nextInt();

@@ -30,7 +30,7 @@ public class Quest012 {
 	}
 	
 	public static boolean insertCheck(String input){
-		return Pattern.matches("^*[a-z]*$",input);
+		return Pattern.matches("^[a-z]*$",input);
 	}
 	
 	public static String whileNumberInserting(String insert) {
